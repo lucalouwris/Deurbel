@@ -12,7 +12,7 @@ numbers = listdir(path)
 length = len(numbers)
 
 # Picking a song
-selected = random.randint(1, length)
+selected = random.randint(1, length + 1)
 
 # Combining the strings for the program
 final_path = path + numbers[selected]
