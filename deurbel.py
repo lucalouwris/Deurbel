@@ -1,7 +1,12 @@
 import random
 import subprocess
 import time
+import RPi.GPIO as GPIO
 from os import listdir
+
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 path = "/home/pi/Music/"
 
@@ -11,19 +16,24 @@ numbers = listdir(path)
 # Checking lenght of array, so the it doesn't pick a non excisting number.
 length = len(numbers)
 
-# Picking a song
-selected = random.randint(0, length)
+while True:
+    input_state = GPIO.input(18)
+    if input_state == False:
+        print('Button Pressed')
+        kill_process = ["/usr/bin/killall", "vlc"]
+        subprocess.Popen(kill_process)
 
-# Combining the strings for the program
-final_path = path + numbers[selected]
+        time.sleep(.1)
 
-kill_process = ["/usr/bin/killall", "vlc"]
-subprocess.Popen(kill_process)
+        # Picking a song
+        selected = random.randint(0, length)
 
-time.sleep(.1)
+        # Combining the strings for the program
+        final_path = path + numbers[selected]
 
-program = ["/usr/bin/vlc", final_path]
-subprocess.Popen(program)
+        program = ["/usr/bin/vlc", final_path]
+        subprocess.Popen(program)
 
-print len(numbers)
-print final_path
+        print len(numbers)
+        print final_path
+        time.sleep(0.2)
