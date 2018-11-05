@@ -17,7 +17,7 @@ selected = random.randint(0, length)
 # Combining the strings for the program
 final_path = path + numbers[selected]
 
-kill_process = ["/usr/bin/killall", "VLC"]
+kill_process = ["/usr/bin/killall", "vlc"]
 subprocess.Popen(kill_process)
 
 time.sleep(.1)
