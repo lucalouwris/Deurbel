@@ -3,7 +3,7 @@ import subprocess
 import time
 from os import listdir
 
-path = "/Users/Loekie/Documents/Music/"
+path = "/home/pi/Music/"
 
 # Making an array for the titles
 numbers = listdir(path)
@@ -19,8 +19,10 @@ final_path = path + numbers[selected]
 
 kill_process = ["/usr/bin/killall", "VLC"]
 subprocess.Popen(kill_process)
+
 time.sleep(.1)
-program = ["/Applications/VLC.app/Contents/MacOS/VLC", final_path]
+
+program = ["/usr/bin/vlc", final_path]
 subprocess.Popen(program)
 
 print len(numbers)
